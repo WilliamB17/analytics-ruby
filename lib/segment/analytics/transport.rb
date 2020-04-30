@@ -7,12 +7,12 @@ require 'net/http'
 require 'net/https'
 require 'json'
 
-module Segment
+module SmlibSegment
   class Analytics
     class Transport
-      include Segment::Analytics::Defaults::Request
-      include Segment::Analytics::Utils
-      include Segment::Analytics::Logging
+      include SmlibSegment::Analytics::Defaults::Request
+      include SmlibSegment::Analytics::Utils
+      include SmlibSegment::Analytics::Logging
 
       def initialize(options = {})
         options[:host] ||= HOST
@@ -22,7 +22,7 @@ module Segment
         @path = options[:path] || PATH
         @retries = options[:retries] || RETRIES
         @backoff_policy =
-          options[:backoff_policy] || Segment::Analytics::BackoffPolicy.new
+          options[:backoff_policy] || SmlibSegment::Analytics::BackoffPolicy.new
 
         http = Net::HTTP.new(options[:host], options[:port])
         http.use_ssl = options[:ssl]

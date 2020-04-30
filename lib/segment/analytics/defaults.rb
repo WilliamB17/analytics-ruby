@@ -1,4 +1,4 @@
-module Segment
+module SmlibSegment
   class Analytics
     module Defaults
       module Request

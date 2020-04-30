@@ -11,9 +11,7 @@ program :version, '0.0.1'
 program :description, 'scripting simulator'
 
 def json_hash(str)
-  if str
-    return JSON.parse(str)
-  end
+  return JSON.parse(str) if str
 end
 
 # analytics -method=<method> -segment-write-key=<segmentWriteKey> [options]
@@ -23,8 +21,8 @@ default_command :send
 command :send do |c|
   c.description = 'send a segment message'
 
-  c.option '--writeKey=<writeKey>', String, 'the Segment writeKey'
-  c.option '--type=<type>', String, 'The Segment message type'
+  c.option '--writeKey=<writeKey>', String, 'the SmlibSegment writeKey'
+  c.option '--type=<type>', String, 'The SmlibSegment message type'
 
   c.option '--userId=<userId>', String, 'the user id to send the event as'
   c.option '--anonymousId=<anonymousId>', String, 'the anonymous user id to send the event as'
@@ -41,64 +39,64 @@ command :send do |c|
   c.option '--groupId=<groupId>', String, 'the group id'
   c.option '--previousId=<previousId>', String, 'the previous id'
 
-  c.action do |args, options|
-    Analytics = Segment::Analytics.new({
-      write_key: options.writeKey,
-      on_error: Proc.new { |status, msg| print msg }
+  c.action do |_args, options|
+    Analytics = SmlibSegment::Analytics.new({
+      :write_key => options.writeKey,
+      :on_error => proc { |_status, msg| print msg }
     })
 
     case options.type
-    when "track"
+    when 'track'
       Analytics.track({
-        user_id: options.userId,
-        event: options.event,
-        anonymous_id: options.anonymousId,
-        properties: json_hash(options.properties),
-        context: json_hash(options.context),
-        integrations: json_hash(options.integrations)
+        :user_id => options.userId,
+        :event => options.event,
+        :anonymous_id => options.anonymousId,
+        :properties => json_hash(options.properties),
+        :context => json_hash(options.context),
+        :integrations => json_hash(options.integrations)
       })
-    when "page"
+    when 'page'
       Analytics.page({
-        user_id: options.userId,
-        anonymous_id: options.anonymousId,
-        name: options.name,
-        properties: json_hash(options.properties),
-        context: json_hash(options.context),
-        integrations: json_hash(options.integrations)
+        :user_id => options.userId,
+        :anonymous_id => options.anonymousId,
+        :name => options.name,
+        :properties => json_hash(options.properties),
+        :context => json_hash(options.context),
+        :integrations => json_hash(options.integrations)
       })
-    when "screen"
+    when 'screen'
       Analytics.screen({
-        user_id: options.userId,
-        anonymous_id: options.anonymousId,
-        name: options.name,
-        properties: json_hash(options.properties),
-        context: json_hash(options.context),
-        integrations: json_hash(options.integrations)
+        :user_id => options.userId,
+        :anonymous_id => options.anonymousId,
+        :name => options.name,
+        :properties => json_hash(options.properties),
+        :context => json_hash(options.context),
+        :integrations => json_hash(options.integrations)
       })
-    when "identify"
+    when 'identify'
       Analytics.identify({
-        user_id: options.userId,
-        anonymous_id: options.anonymousId,
-        traits: json_hash(options.traits),
-        context: json_hash(options.context),
-        integrations: json_hash(options.integrations)
+        :user_id => options.userId,
+        :anonymous_id => options.anonymousId,
+        :traits => json_hash(options.traits),
+        :context => json_hash(options.context),
+        :integrations => json_hash(options.integrations)
       })
-    when "group"
+    when 'group'
       Analytics.group({
-        user_id: options.userId,
-        anonymous_id: options.anonymousId,
-        group_id: options.groupId,
-        traits: json_hash(options.traits),
-        context: json_hash(options.context),
-        integrations: json_hash(options.integrations)
+        :user_id => options.userId,
+        :anonymous_id => options.anonymousId,
+        :group_id => options.groupId,
+        :traits => json_hash(options.traits),
+        :context => json_hash(options.context),
+        :integrations => json_hash(options.integrations)
       })
-    when "alias"
+    when 'alias'
       Analytics.alias({
-        previous_id: options.previousId,
-        user_id: options.userId,
-        anonymous_id: options.anonymousId,
-        context: json_hash(options.context),
-        integrations: json_hash(options.integrations)
+        :previous_id => options.previousId,
+        :user_id => options.userId,
+        :anonymous_id => options.anonymousId,
+        :context => json_hash(options.context),
+        :integrations => json_hash(options.integrations)
       })
     else
       raise "Invalid Message Type #{options.type}"

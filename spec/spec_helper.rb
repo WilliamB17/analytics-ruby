@@ -10,7 +10,7 @@ require 'active_support/time'
 # Setting timezone for ActiveSupport::TimeWithZone to UTC
 Time.zone = 'UTC'
 
-module Segment
+module SmlibSegment
   class Analytics
     WRITE_KEY = 'testsecret'
 

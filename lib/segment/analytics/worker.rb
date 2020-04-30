@@ -3,12 +3,12 @@ require 'segment/analytics/message_batch'
 require 'segment/analytics/transport'
 require 'segment/analytics/utils'
 
-module Segment
+module SmlibSegment
   class Analytics
     class Worker
-      include Segment::Analytics::Utils
-      include Segment::Analytics::Defaults
-      include Segment::Analytics::Logging
+      include SmlibSegment::Analytics::Utils
+      include SmlibSegment::Analytics::Defaults
+      include SmlibSegment::Analytics::Logging
 
       # public: Creates a new worker
       #

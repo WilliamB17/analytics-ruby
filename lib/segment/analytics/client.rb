@@ -6,11 +6,11 @@ require 'segment/analytics/logging'
 require 'segment/analytics/utils'
 require 'segment/analytics/worker'
 
-module Segment
+module SmlibSegment
   class Analytics
     class Client
-      include Segment::Analytics::Utils
-      include Segment::Analytics::Logging
+      include SmlibSegment::Analytics::Utils
+      include SmlibSegment::Analytics::Logging
 
       # @param [Hash] opts
       # @option opts [String] :write_key Your project's write_key
